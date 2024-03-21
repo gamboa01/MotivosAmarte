@@ -39,7 +39,7 @@
 		}
 
 		h1{
-			-webkit-animation:latido 3s infinite 1.5s alternate ease;
+			-webkit-animation:latido 5s infinite 1.5s alternate ease;
 			-webkit-animation-play-state: running;
 			font-size: 1.5em;
 			left: 39.5%;
@@ -61,7 +61,7 @@
 			Dirección: normal, alternante
 			Tipos de aceleracion : ease, linear, ease-in, ease-out, ease-in-out, cubic-bezier(n,n,n,n) donde n va de 0 a 1 Estado de la animación: running o paused
 			*/
-			-webkit-animation:latido 3s infinite 1.5s alternate ease;
+			-webkit-animation:latido 5s infinite 1.5s alternate ease;
 			-webkit-animation-play-state: running;
 			left: 35%;
 			height: 180px;
