@@ -1,36 +1,3 @@
-// Función para establecer una cookie
-function setCookie(nombre, valor, dias) {
-    var fecha = new Date();
-    fecha.setTime(fecha.getTime() + (dias * 24 * 60 * 60 * 1000));
-    var expiracion = "expires=" + fecha.toUTCString();
-    document.cookie = nombre + "=" + valor + ";" + expiracion + ";path=/";
-}
-
-// Función para obtener el valor de una cookie
-function getCookie(nombre) {
-    var nombreCookie = nombre + "=";
-    var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-        var cookie = cookies[i];
-        while (cookie.charAt(0) == ' ') {
-            cookie = cookie.substring(1);
-        }
-        if (cookie.indexOf(nombreCookie) == 0) {
-            return cookie.substring(nombreCookie.length, cookie.length);
-        }
-    }
-    return "";
-}
-
-function seMostraronMotivosHoy() {
-    const hoy = new Date().toLocaleDateString();
-    return localStorage.getItem("ultimaFechaMostrada") === hoy;
-}
-
-function guardarFechaMostrada() {
-    const hoy = new Date().toLocaleDateString();
-    localStorage.setItem("ultimaFechaMostrada", hoy);
-}
 
 document.getElementById("dddddfcxv").addEventListener("keypress", function(event) {
     if (event.keyCode === 13) {
@@ -53,21 +20,28 @@ function josdgksdjgksdjg(){
     }
 }
 
+document.getElementById("galeria").addEventListener("click",function(){
+
+})
+
+
+
 document.getElementById("cambiarMotivoBtn").addEventListener("click", function () {
 
-    if (!seMostraronMotivosHoy()) {
+    if (motivosMostrados.length!==motivos.length) {
         mostrarMotivoAleatorio();
         document.getElementById("cambiarMotivoBtn").disabled = false;
     } else {
-        document.getElementById("motivoTexto").innerText = "Hoy ya has visto un motivo. ¡Vuelve mañana para uno nuevo!";
-        document.getElementById("titulo").innerText = "Motivo del día";
-        document.getElementById("verNuevamente").style.display = "inline";
+        document.getElementById("titulo").innerText = "Mi sonrisita de luna 🌛";
+        document.getElementById("motivoTexto").innerText = "Ya has visto todos los motivos.\nTe Amo Mi Amorcito";
         document.getElementById("cambiarMotivoBtn").style.display = "none";
+        document.getElementById("verNuevamente").style.display="none";
+        document.getElementById('imagenes').innerHTML = '<iframe src="corazon.html" width="100%" height="100%" frameborder="0"></iframe>';
+        document.getElementById('imagenes').style.height="500px";
         document.getElementById("pie").style.position = "fixed";
-        const galeria = document.getElementById("imagenes");
-        galeria.innerHTML = "";
+        document.getElementById("reset").style.display="inline";
+
     }
-    guardarFechaMostrada();
 });
 
 document.getElementById("verNuevamente").addEventListener("click", function () {
@@ -115,16 +89,6 @@ const motivos = [
 
 
 let motivosMostrados = [];
-const cookieMotivosMostrados = getCookie("motivosMostrados");
-
-if (cookieMotivosMostrados) {
-    try {
-        motivosMostrados = JSON.parse(cookieMotivosMostrados);
-        console.log(motivosMostrados)
-    } catch (error) {
-        console.error("Error al parsear la cookie de motivos mostrados:", error);
-    }
-}
 
 function EncontrarFaltantes(motivosLista) {
     let devolucion = [];
@@ -146,29 +110,16 @@ function EncontrarFaltantes(motivosLista) {
 
 function mostrarMotivoAleatorio() {
     const motivosNoMostrados = EncontrarFaltantes(motivos);
-    console.log(motivosNoMostrados)
-
     if (motivosNoMostrados.length === 0) {
-        document.getElementById("motivoTexto").innerText = "Ya has visto todos los motivos.\nTe Amo Mi Amorcito";
-        document.getElementById("cambiarMotivoBtn").style.display = "none";
-        document.getElementById("verNuevamente").style.display="none";
-        const galeria = document.getElementById("imagenes");
-        galeria.innerHTML = "";
-        document.getElementById("pie").style.position = "fixed";
-        /*document.getElementById("reset").style.display="inline";*/
         return;
     }
 
     const indiceAleatorio = Math.floor(Math.random() * motivosNoMostrados.length);
     const indiceMotivo = motivosNoMostrados[indiceAleatorio];
-    
-    console.log(indiceAleatorio)
-    console.log(indiceMotivo)
+
         motivosMostrados.push(indiceMotivo);
         document.getElementById("titulo").innerText = "Te amo...";
         mostrarImagen(indiceMotivo);
-        setCookie("motivosMostrados", JSON.stringify(motivosMostrados), 30);
-
 }
 
 
@@ -183,25 +134,31 @@ function mostrarImagen(motivo) {
 }
 
 document.getElementById("reset").addEventListener("click", function () {
-    limpiarMotivosMostrados();
+    location.reload();
 });
 
-function limpiarMotivosMostrados() {
-    motivosMostrados=[];
-    localStorage.removeItem("ultimaFechaMostrada");
-    localStorage.removeItem("motivosMostrados");
-    document.getElementById("cambiarMotivoBtn").disabled = false;
-}
 
-
-/*Para Corazones Volando*/
-$( document ).ready(function() { 
+function agruparCocos(variable){
     var envelope = $('#galeria');
     envelope.click( function() {
-        open();
+            open();
     });
+    
     function open() {
         envelope.addClass("open")
            .removeClass("close");
+           setTimeout(function () {
+            close();
+        }, 5000);
     }
+
+    function close() {
+        envelope.addClass("close")
+           .removeClass("open");
+    }
+}
+
+/*Para Corazones Volando*/
+$( document ).ready(function() { 
+    agruparCocos();
 });
