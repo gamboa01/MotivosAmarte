@@ -55,10 +55,10 @@
 		}
 
 		#subtitles {
-			
-			font-size: 2em;
+			font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+			font-size: 1.5em;
 			position: fixed;
-			top: 10%;
+			top: 20%;
 			left: 50%;
 			transform: translate(-50%, -50%);
 			z-index: 3;
